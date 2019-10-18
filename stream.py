@@ -1,10 +1,11 @@
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
-import streamlink
+from streamlink import Streamlink
 # Use cli to ouput help
-import streamlink_cli.main
+from streamlink_cli.main import parser_helper
 
 app = Flask(__name__)
+# Set video chunk size
 buff_size = 1 << 17
 
 
@@ -14,7 +15,7 @@ def main():
     args = request.args
     # Output cli help
     if 'help' in args:
-        return Response(streamlink_cli.main.parser_helper().format_help(), content_type='text/plain')
+        return Response(parser_helper().format_help(), content_type='text/plain')
     # url should be either first argument or set explicitly with 'url' key.
     if 'url' not in args:
         url = next(iter(args))
@@ -23,21 +24,22 @@ def main():
 
     # Split url to url itself (url[0]) and stream (url[1]) if present.
     url = url.split()
-    session = streamlink.Streamlink()
+    session = Streamlink()
     # Use remain arguments to set other options.
     for key in args:
         session.set_option(key, args[key])
     try:
         # Catch stream with given url
         streams = session.streams(url[0])
-    except Exception:
-        raise
+    except Exception as exception:
+        error = 'Exception {0}: {1}\n'.format(type(exception).__name__, exception)
+        return Response(error, content_type='text/plain')
     # pick the stream
     if len(url) > 1:
         stream = streams[url[1]]
     else:
         # If specific stream is not provided in args, output list of available streams.
-        return Response('Avaiable streams: ' + str(list(streams.keys())) + '\n', content_type='text/plain')
+        return Response('Available streams: ' + str(list(streams.keys())) + '\n', content_type='text/plain')
 
     # Stream generator
     def generate():
