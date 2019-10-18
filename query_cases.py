@@ -1,8 +1,12 @@
+import os
 import unittest
 
 url = 'youtube.com/user/Bloomberg'
 sample = '474000'
-https_proxy = 'http://51.38.71.101:8080'
+if 'https_proxy' in os.environ:
+    https_proxy = os.environ['https_proxy']
+else:
+    https_proxy = 'http://51.38.71.101:8080'
 
 
 class TestCases(unittest.TestCase):
