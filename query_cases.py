@@ -2,7 +2,7 @@ import unittest
 
 url = 'youtube.com/user/Bloomberg'
 sample = '474000'
-https_proxy = 'http://80.245.117.194:8080'
+https_proxy = 'http://51.38.71.101:8080'
 
 
 class TestCases(unittest.TestCase):
