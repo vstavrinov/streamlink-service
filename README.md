@@ -57,7 +57,6 @@ key1=value1&key2=value2
 ```
 For example using proxy:
 ```
-```
 vlc --playlist-autostart 'http://localhost:8000/?youtube.com/user/Bloomberg+best&https-proxy=http://80.245.117.194:8080'
 ```
 
