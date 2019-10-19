@@ -59,5 +59,12 @@ For example using proxy:
 ```
 vlc --playlist-autostart 'http://localhost:8000/?youtube.com/user/Bloomberg+best&https-proxy=http://80.245.117.194:8080'
 ```
+If the URL itself contains query string then url should be set in key/value style like others i.e. url=...
+
+For example:
+```
+vlc --playlist-autostart 'http://localhost:8000/?url=arconaitv.us/stream.php?id=44+best&http-ssl-verify='
+```
+The last example shows as well how to set boolean value: the key 'http-ssl-verify' has no value  - this way it set to False, while in any other ways it always gets True.
 
 Needless to say You can use any player instead vlc and browser your prefer instead curl. 
