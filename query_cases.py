@@ -6,7 +6,7 @@ sample = '474000'
 if 'test_proxy' in os.environ:
     https_proxy = os.environ['test_proxy']
 else:
-    https_proxy = 'http://51.38.71.101:8080'
+    https_proxy = 'http://37.98.227.70:8080'
 
 
 class TestCases(unittest.TestCase):

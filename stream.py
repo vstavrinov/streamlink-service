@@ -9,6 +9,7 @@ buff_size = 1 << 17
 
 @app.route('/')
 def main():
+    '''Parse query string, set options and get stream.'''
     try:
         # Get arguments passed with query string
         args = request.args
@@ -24,9 +25,13 @@ def main():
         # Split url to url itself (url[0]) and stream (url[1]) if present.
         url = url.split()
         session = Streamlink()
+        plugin = session.resolve_url(url[0])
         # Use remain arguments to set other options.
         for key in args:
+            # Set session options described by help
             session.set_option(key, args[key])
+            # Set plugin options if require (usually username and password)
+            plugin.set_option(key, args[key])
         # Catch stream with given url
         streams = session.streams(url[0])
         # pick the stream
