@@ -28,7 +28,7 @@ docker run -d -e PORT=7000 -p 8000:7000 streamlink-service
 Or you can omit build phase and pull and run it directly from repository:
 
 ```
-docker run -d -e PORT=7000 -p 8000:7000 docker pull vstavrinov/streamlink-service
+docker run -d -e PORT=7000 -p 8000:7000 vstavrinov/streamlink-service
 ```
 
 Finally you can watch tv:
