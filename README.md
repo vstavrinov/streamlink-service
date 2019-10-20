@@ -65,6 +65,6 @@ For example:
 ```
 vlc --playlist-autostart 'http://localhost:8000/?url=arconaitv.us/stream.php?id=44+best&http-ssl-verify='
 ```
-The last example shows as well how to set boolean value: the key 'http-ssl-verify' has no value  - this way it set to False, while in any other ways it always gets True.
+The last example shows as well how to set boolean value: the key 'http-ssl-verify' has no value  - this way it set to False, while in any other ways it always gets True. Note that some sites requires username and password, so they could be added as usual options.
 
 Needless to say You can use any player instead vlc and browser your prefer instead curl. 
