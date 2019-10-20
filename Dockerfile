@@ -3,7 +3,7 @@ WORKDIR /srv/streamlink-service
 ENV COLUMNS=116
 ADD stream.py .
 RUN apk update &&                                                               \
-    apk add uwsgi-python3 uwsgi-http py3-flask gcc musl-dev;                    \
+    apk add uwsgi-python3 uwsgi-http py3-flask gcc musl-dev ffmpeg;             \
     pip3 install https://github.com/vstavrinov/streamlink/archive/maverick.zip; \
     apk del gcc musl-dev;                                                       \
     rm -vfr /root/.cache /var/cache/apk/*
