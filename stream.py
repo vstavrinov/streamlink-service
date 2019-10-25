@@ -45,10 +45,11 @@ def main():
         def generate(fd):
             chunk = True
             # Iterate over stream
-            while chunk:
-                chunk = fd.read(buff_size)
-                # Read chunk of stream
-                yield chunk
+            with fd:
+                while chunk:
+                    chunk = fd.read(buff_size)
+                    # Read chunk of stream
+                    yield chunk
 
         # Streaming to client
         # Open file like object of stream

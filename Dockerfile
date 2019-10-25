@@ -8,4 +8,4 @@ RUN apk update &&                                                               
     apk del gcc musl-dev;                                                       \
     rm -vfr /root/.cache /var/cache/apk/*
 USER uwsgi
-CMD uwsgi --plugin python3,http --http-socket 0.0.0.0:$PORT --wsgi-file stream.py --callable app -M -p 4 --threads 4
+CMD uwsgi --plugin python3,http --http-socket 0.0.0.0:$PORT --wsgi-file stream.py --callable app -M -p 2 --threads 2
