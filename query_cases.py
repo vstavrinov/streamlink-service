@@ -1,7 +1,10 @@
 import os
 import unittest
 
-url = 'youtube.com/user/Bloomberg'
+if 'test_url' in os.environ:
+    url = os.environ['test_url']
+else:
+    url = 'youtube.com/user/Bloomberg'
 sample = '474000'
 
 
@@ -29,6 +32,7 @@ class TestCases(unittest.TestCase):
             args = url
             args += '+best'
             args += '&https-proxy=' + os.environ['test_proxy']
+            args += '&http-timeout=60'
             self.assertTrue(self.probe(args, len(sample)//2).hex() == sample)
         else:
             self.assertTrue(True)

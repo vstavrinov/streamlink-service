@@ -1,3 +1,4 @@
+import re
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
 from streamlink import Streamlink
@@ -28,10 +29,14 @@ def main():
         plugin = session.resolve_url(url[0])
         # Use remain arguments to set other options.
         for key in args:
+            if re.match('[0-9]+$', args[key]):
+                value = int(args[key])
+            else:
+                value = args[key]
             # Set session options described by help
-            session.set_option(key, args[key])
+            session.set_option(key, value)
             # Set plugin options if require (usually username and password)
-            plugin.set_option(key, args[key])
+            plugin.set_option(key, value)
         # Catch stream with given url
         streams = session.streams(url[0])
         # pick the stream
