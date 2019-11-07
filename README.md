@@ -43,7 +43,7 @@ Here 'youtube.com/user/Bloomberg' is URL of web page where You watch this stream
 curl http://localhost:8000/?youtube.com/user/Bloomberg
 ```
 
-Here is list of supported sites for streaming: https://github.com/vstavrinov/streamlink/blob/maverick/docs/plugin_matrix.rst
+Here is list of supported sites for streaming: https://github.com/vstavrinov/streamlink/blob/master/docs/plugin_matrix.rst
 
 See more available options:
 
