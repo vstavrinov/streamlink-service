@@ -5,7 +5,7 @@ from streamlink import Streamlink
 
 app = Flask(__name__)
 # Set video chunk size
-buff_size = 1 << 17
+buff_size = 1 << 12
 
 
 @app.route('/')
