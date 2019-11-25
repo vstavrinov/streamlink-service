@@ -1,3 +1,8 @@
+try:
+  import googleclouddebugger
+  googleclouddebugger.enable()
+except ImportError:
+  pass
 import re
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
@@ -56,10 +61,18 @@ def main():
                     # Read chunk of stream
                     yield chunk
 
-        # Streaming to client
-        # Open file like object of stream
-        fd = stream.open()
-        return Response(generate(fd), content_type='video/mpeg')
+        if 'link' in args:
+            # Redirect client to stream url
+            redirect_url = stream.url
+            response = Response('', content_type='')
+            response.headers['Location'] = redirect_url
+            response.status_code = 302
+            return response
+        else:
+            # Streaming to client
+            # Open file like object of stream
+            fd = stream.open()
+            return Response(generate(fd), content_type='video/mpeg')
     except Exception or OSError as exception:
         error = 'Exception {0}: {1}\n'.format(type(exception).__name__, exception)
         return Response(error, content_type='text/plain')
@@ -67,4 +80,4 @@ def main():
 
 # call script from command line for testing
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=8080)
