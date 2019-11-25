@@ -1,3 +1,3 @@
 Flask
+Werkzeug
 https://github.com/vstavrinov/streamlink/archive/master.zip
-google-python-cloud-debugger
