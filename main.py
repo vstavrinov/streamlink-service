@@ -1,8 +1,3 @@
-try:
-  import googleclouddebugger
-  googleclouddebugger.enable()
-except ImportError:
-  pass
 import re
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.

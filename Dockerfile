@@ -11,7 +11,7 @@ RUN apk update &&                                                             \
     rm -vfr /root/.cache /var/cache/apk/*
 CMD uwsgi --http-socket 0.0.0.0:$PORT \
           --plugin python3,http       \
-          --wsgi-file main.py       \
+          --wsgi-file main.py         \
           --lock-engine ipcsem        \
           --callable app              \
           --workers 4                 \

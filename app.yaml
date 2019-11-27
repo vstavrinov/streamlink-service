@@ -1,11 +1,10 @@
-runtime: python27
-api_version: 1
-threadsafe: true
+runtime: custom
+env: flex
+automatic_scaling:
+    min_num_instances: 1
+    max_num_instances: 1
 
-libraries:
-- name: ssl
-  version: latest
-
-handlers:
-    - url: /.*
-      script: main.app
+resources:
+    cpu: 1
+    memory_gb: 0.5
+    disk_size_gb: 10
