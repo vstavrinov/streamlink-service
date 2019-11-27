@@ -4,7 +4,9 @@ language: python
 
 env:
   global:
+    # default internal port
     - PORT=7000
+    # default external port
     - port=8000
     - DOCKER_REPO=streamlink-service
     - HEROKU_REPO=juststream
@@ -13,22 +15,30 @@ services:
   - docker
 
 before_install:
+  # build docker image
   - docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
+  # install test stuff
   - pip install pytest-cov pytest-flake8 codecov
+  # encrypt keyfile
   - openssl aes-256-cbc -K $encrypted_7c88188abb27_key -iv $encrypted_7c88188abb27_iv -in streamlink-1-1a849fdf22dd.json.enc -out streamlink-1-1a849fdf22dd.json -d
 
 install:
+  # start instance
   - docker run -d -e PORT=$PORT -p $port:$PORT $DOCKER_USERNAME/$DOCKER_REPO
 
 script:
+  # run tests
   - python -m pytest
-  - git clean -fd
+  # clean up untracked files except keyfile
+  - git clean -fde streamlink-1-1a849fdf22dd.json
 
 deploy:
+  # deploy master to heroku and tagged commits to docker hub
   - provider: script
     script: ./deploy.sh
     on:
       all_branches: true
+  # deploy to Google App Engine
   - provider: gae
     project: streamlink-1
-    keyfile: streamlink-1-1a849fdf22dd.json.enc
+    keyfile: streamlink-1-1a849fdf22dd.json
