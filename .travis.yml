@@ -28,7 +28,7 @@ install:
 
 script:
   # run tests
-  - python -m pytest
+  - sleep 2; python -m pytest
   # clean up untracked files except keyfile
   - git clean -fde streamlink-1-1a849fdf22dd.json
 
