@@ -9,7 +9,7 @@ buff_size = 1 << 12
 
 
 @app.route('/')
-def main():
+def streamlink(request=request):
     '''Parse query string, set options and get stream.'''
     try:
         # Get arguments passed with query string

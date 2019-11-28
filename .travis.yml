@@ -39,6 +39,6 @@ deploy:
     on:
       all_branches: true
   # deploy to Google App Engine
-  - provider: gae
-    project: streamlink-1
-    keyfile: streamlink-1-1a849fdf22dd.json
+  #- provider: gae
+  #  project: streamlink-1
+  #  keyfile: streamlink-1-1a849fdf22dd.json
