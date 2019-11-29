@@ -34,6 +34,7 @@ script:
 
 deploy:
   # deploy master to heroku and tagged commits to docker hub
+  skip_cleanup: true
   - provider: script
     script: ./deploy.sh
     on:

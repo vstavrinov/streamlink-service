@@ -25,7 +25,6 @@ if [ "$TRAVIS_TAG" = "" ]; then
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg |
     sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
     sudo apt-get update && sudo apt-get install google-cloud-sdk
-    ls
     gcloud auth activate-service-account --key-file=streamlink-1-1a849fdf22dd.json streamlink-1@appspot.gserviceaccount.com
     gcloud functions deploy --allow-unauthenticated --trigger-http --runtime=python37 --region=us-east1 --project=streamlink-1 streamlink
 
