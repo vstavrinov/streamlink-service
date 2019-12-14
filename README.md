@@ -13,7 +13,7 @@ docker build -t streamlink-service .
 ## Usage:
 
 ```
-docker run -d -e PORT=service-port -p container-port:service-port streamlink-image
+docker run -d -e PORT=<service-port> -p <container-port>:<service-port> <streamlink-image>
 ```
 
 - service-port is port of service inside container.
@@ -34,21 +34,21 @@ docker run -d -e PORT=7000 -p 8000:7000 vstavrinov/streamlink-service
 Finally you can watch tv:
 
 ```
-vlc --playlist-autostart http://localhost:8000/?youtube.com/user/Bloomberg+best
+vlc --playlist-autostart http://localhost:8000/?youtube.com/user/Bloomberg+best=
 ```
 
-Here 'youtube.com/user/Bloomberg' is URL of web page where You watch this stream with browser. The '+best'  suffix  is one of available streams. Check for all available streams:
+Here 'youtube.com/user/Bloomberg' is URL of web page where You watch this stream with browser. Trailing '=' sign is necessary in this case because it is shortcut for 'url=youtube.com/user/Bloomberg+best' parameter. The '+best'  suffix  is one of available streams. Check for all available streams:
 
 ```
-curl http://localhost:8000/?youtube.com/user/Bloomberg
+curl http://localhost:8000/?youtube.com/user/Bloomberg=
 ```
 
-Here is list of supported sites for streaming: https://github.com/vstavrinov/streamlink/blob/master/docs/plugin_matrix.rst
+Here is list of supported sites for streaming: https://github.com/vstavrinov/streamlink/blob/master/docs/plugin\_matrix.rst
 
 See more available options:
 
 ```
-curl http://localhost:8000/?help
+curl http://localhost:8000/?help=
 ```
 
 You can put these options into query string with '&' delimiter in the form: 
@@ -57,7 +57,7 @@ key1=value1&key2=value2
 ```
 For example using proxy:
 ```
-vlc --playlist-autostart 'http://localhost:8000/?youtube.com/user/Bloomberg+best&https-proxy=http://80.245.117.194:8080'
+vlc --playlist-autostart 'http://localhost:8000/?youtube.com/user/Bloomberg+best=&https-proxy=http://80.245.117.194:8080'
 ```
 If the URL itself contains query string then url should be set in key/value style like others i.e. url=...
 
