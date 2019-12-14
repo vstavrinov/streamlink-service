@@ -19,15 +19,6 @@ if [ "$TRAVIS_TAG" = "" ]; then
     -H "Content-Type: application/json" \
     -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
     -H "Authorization: $(echo -n $HEROKU_IDENTITY:$HEROKU_API_KEY | base64)"
-    echo Deploy Cloud Function
-    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" |
-    sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list 
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg |
-    sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-    sudo apt-get update && sudo apt-get install google-cloud-sdk
-    gcloud auth activate-service-account --key-file=streamlink-1-1a849fdf22dd.json streamlink-1@appspot.gserviceaccount.com
-    gcloud functions deploy --allow-unauthenticated --trigger-http --runtime=python37 --region=us-east1 --project=streamlink-1 streamlink
-
 # Deploy to docker hub new version (tag)
 else
     echo Deploy to docker hub
