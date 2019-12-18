@@ -9,7 +9,6 @@ env:
     # default external port
     - port=8000
     - DOCKER_REPO=streamlink-service
-    - HEROKU_REPO=juststream
 
 services:
   - docker

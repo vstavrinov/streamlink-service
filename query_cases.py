@@ -11,8 +11,8 @@ sample = '474000'
 class TestCases(unittest.TestCase):
 
     def probe(self, args, count):
-        pass
         '''Make actual query to the service. Redefined in child class'''
+        pass
 
     def test_video(self):
         '''Get video stream by implicit parameter'''
