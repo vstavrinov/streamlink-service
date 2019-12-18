@@ -18,8 +18,6 @@ before_install:
   - docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
   # install test stuff
   - pip install pytest-cov pytest-flake8 codecov
-  # decrypt keyfile
-  - openssl aes-256-cbc -K $encrypted_7c88188abb27_key -iv $encrypted_7c88188abb27_iv -in streamlink-1-1a849fdf22dd.json.enc -out streamlink-1-1a849fdf22dd.json -d
 
 install:
   # start instance
