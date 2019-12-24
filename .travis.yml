@@ -27,7 +27,6 @@ script:
   # run tests
   - sleep 2; python -m pytest
   # clean up untracked files except keyfile
-  - git clean -fde streamlink-1-1a849fdf22dd.json
 
 deploy:
   # deploy master to heroku and tagged commits to docker hub
