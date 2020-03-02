@@ -2,10 +2,14 @@ import re
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
 from streamlink import Streamlink
+from sys import argv
+from time import time
+from urllib.request import urlopen
 
 app = Flask(__name__)
 # Set video chunk size
-buff_size = 1 << 12
+buff_size = 1 << 16
+pause = 600
 
 
 @app.route('/')
@@ -47,11 +51,19 @@ def streamlink(request=request):
             return Response('Available streams: ' + str(list(streams.keys())) + '\n', content_type='text/plain')
 
         # Stream generator
+        url_root = request.url_root
+
         def generate(fd):
             chunk = True
             # Iterate over stream
             with fd:
+                last = time()
                 while chunk:
+                    now = time()
+                    # yank periodically server to keepalive
+                    if now - last > pause:
+                        urlopen(url_root)
+                        last = now
                     chunk = fd.read(buff_size)
                     # Read chunk of stream
                     yield chunk
@@ -75,4 +87,8 @@ def streamlink(request=request):
 
 # call script from command line for testing
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    if len(argv) > 1:
+        port = argv[1]
+    else:
+        port = 8080
+    app.run(debug=True, host='0.0.0.0', port=port)
