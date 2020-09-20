@@ -9,6 +9,7 @@ jobs:
 
     steps:
       - name: build
+      - uses: actions/checkout@v2
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: docker build -t $DOCKER_USERNAME/streamlink-service .
