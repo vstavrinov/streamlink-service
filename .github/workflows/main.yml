@@ -12,9 +12,11 @@ jobs:
       - name: build
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker build -t $DOCKER_USERNAME/streamlink-service .
+          DOCKER_REPO: streamlink-service
+        run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
       - name: deployment
         env:
+          DOCKER_REPO: streamlink-service
           BOV_API_KEY: ${{ secrets.BOV_API_KEY }}
           BOV_IDENTITY: ${{ secrets.BOV_IDENTITY }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
