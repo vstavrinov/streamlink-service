@@ -2,6 +2,12 @@ name: main
 
 on: [workflow_dispatch]
 
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_REPO: streamlink-service
+  PORT: 7000
+  port: 8000
+
 jobs:
   deploy:
 
@@ -10,17 +16,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_REPO: streamlink-service
         run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
-      - name: deployment
+      - name: install
+        run: pip install pytest-cov pytest-flake8 codecov
+      - name: run
+        run: docker run -d -e PORT=$PORT -p $port:$PORT $DOCKER_USERNAME/$DOCKER_REPO
+      - name: test
+        run: python -m pytest
+      - name: deploy
         env:
-          DOCKER_REPO: streamlink-service
           BOV_API_KEY: ${{ secrets.BOV_API_KEY }}
           BOV_IDENTITY: ${{ secrets.BOV_IDENTITY }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           JUSTSTREAM_API_KEY: ${{ secrets.JUSTSTREAM_API_KEY }}
           JUSTSTREAM_IDENTITY: ${{ secrets.JUSTSTREAM_IDENTITY }}
           VOM_API_KEY: ${{ secrets.VOM_API_KEY }}
