@@ -6,7 +6,7 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_REPO: streamlink-service
   PORT: 7000
-  port: 8000
+  entry: 8000
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
       - name: install
         run: pip install pytest-cov pytest-flake8 codecov
       - name: run
-        run: docker run -d -e PORT=$PORT -p $port:$PORT $DOCKER_USERNAME/$DOCKER_REPO
+        run: docker run -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
       - name: test
         run: python -m pytest
       - name: deploy
