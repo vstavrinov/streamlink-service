@@ -24,8 +24,10 @@ jobs:
         run: pip install pytest-cov pytest-flake8 codecov
       - name: run
         run: docker run -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
+      - name: sleep
+        run: sleep 4
       - name: test
-        run: sleep 4; python -m pytest
+        run: python -m pytest
       - name: deploy
         env:
           BOV_API_KEY: ${{ secrets.BOV_API_KEY }}
