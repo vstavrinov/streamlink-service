@@ -25,7 +25,7 @@ jobs:
       - name: run
         run: docker run -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
       - name: test
-        run: sleep 2; python -m pytest
+        run: sleep 4; python -m pytest
       - name: deploy
         env:
           BOV_API_KEY: ${{ secrets.BOV_API_KEY }}
