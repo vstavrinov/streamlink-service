@@ -8,5 +8,5 @@ endpoint = 'http://localhost:8000/?'
 class TestQuery(query_cases.TestCases):
 
     def probe(self, args, count):
-        sleep(1)
+        sleep(2)
         return urlopen(endpoint + args).read(count)
