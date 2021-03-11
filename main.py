@@ -32,6 +32,7 @@ def streamlink(request=request):
         session = Streamlink()
         plugin = session.resolve_url(url[0])
         # Use remain arguments to set other options.
+        args['http-headers'] = 'User-Agent=Mozilla/5.0'
         for key in args:
             if re.match('[0-9]+$', args[key]):
                 value = int(args[key])
