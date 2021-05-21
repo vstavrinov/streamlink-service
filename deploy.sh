@@ -2,14 +2,9 @@
 
 # Deploy to heroku and Cloud Function on commits of master branch 
 echo Deploy to heroku
-echo "
-juststream $JUSTSTREAM_IDENTITY $JUSTSTREAM_API_KEY
-vom $VOM_IDENTITY $VOM_API_KEY
-bov $BOV_IDENTITY $BOV_API_KEY
-" |
+echo "$HEROKU" |
 while read HEROKU_REPO HEROKU_IDENTITY HEROKU_API_KEY; do
     if [ -n "$HEROKU_REPO" ]; then
-        echo $HEROKU_REPO $HEROKU_IDENTITY $HEROKU_API_KEY
         docker tag $DOCKER_USERNAME/$DOCKER_REPO registry.heroku.com/$HEROKU_REPO/web &&
         echo $HEROKU_API_KEY |
         docker login -u $HEROKU_IDENTITY --password-stdin registry.heroku.com &&

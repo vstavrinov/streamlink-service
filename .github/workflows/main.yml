@@ -28,11 +28,6 @@ jobs:
         run: python -m pytest
       - name: deploy
         env:
-          BOV_API_KEY: ${{ secrets.BOV_API_KEY }}
-          BOV_IDENTITY: ${{ secrets.BOV_IDENTITY }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          JUSTSTREAM_API_KEY: ${{ secrets.JUSTSTREAM_API_KEY }}
-          JUSTSTREAM_IDENTITY: ${{ secrets.JUSTSTREAM_IDENTITY }}
-          VOM_API_KEY: ${{ secrets.VOM_API_KEY }}
-          VOM_IDENTITY: ${{ secrets.VOM_IDENTITY }}
+          HEROKU: ${{ secrets.HEROKU }}
         run: ./deploy.sh
