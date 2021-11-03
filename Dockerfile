@@ -6,7 +6,7 @@ EXPOSE $PORT
 ADD main.py .
 RUN apk update &&                                                                              \
     apk add python3 py-pip uwsgi-python uwsgi-http py-flask gcc musl-dev ffmpeg curl py3-lxml  \
-            libxml2-dev libxslt-dev python3-dev;                                               \
+            libxml2-dev libxslt-dev python3-dev py3-wheel;                                     \
     pip3 install https://github.com/vstavrinov/streamlink/archive/master.zip;                  \
     apk del gcc musl-dev libxml2-dev libxslt-dev python3-dev;                                  \
     rm -vfr /root/.cache /var/cache/apk/*
