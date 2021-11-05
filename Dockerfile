@@ -6,9 +6,9 @@ EXPOSE $PORT
 ADD main.py .
 RUN apk update &&                                                                    \
     apk add python3 py-pip uwsgi-python uwsgi-http py-flask gcc musl-dev ffmpeg curl \
-            py3-lxml py3-wheel;                                                      \
-    pip3 install https://github.com/vstavrinov/streamlink/archive/master.zip;        \
-    apk del gcc musl-dev;                                                            \
+            py3-lxml py3-wheel git py3-chardet;                                      \
+    pip install git+https://github.com/vstavrinov/streamlink.git;                    \
+    apk del gcc musl-dev git;                                                        \
     rm -vfr /root/.cache /var/cache/apk/*
 CMD uwsgi --http-socket 0.0.0.0:$PORT \
           --plugin python,http        \
