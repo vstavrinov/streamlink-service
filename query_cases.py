@@ -4,7 +4,7 @@ import unittest
 if 'test_url' in os.environ:
     url = os.environ['test_url']
 else:
-    url = 'ok.ru/videoembed/73314'
+    url = 'ok.ru/videoembed/73364'
 sample = '474000'
 
 

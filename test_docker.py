@@ -1,8 +1,12 @@
+import os
 from urllib.request import urlopen
 import query_cases
 from time import sleep
 
-endpoint = 'http://localhost:8000/?'
+if 'endpoint' in os.environ:
+    endpoint = os.environ['endpoint']
+else:
+    endpoint = 'http://localhost:8000/?'
 
 
 class TestQuery(query_cases.TestCases):
