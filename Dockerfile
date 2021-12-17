@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine
 WORKDIR /srv/streamlink-service
 ENV COLUMNS=116
 ENV PORT=8000
