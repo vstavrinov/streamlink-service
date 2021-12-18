@@ -5,7 +5,7 @@ echo Deploy to heroku
 echo "$HEROKU" |
 while read HEROKU_REPO HEROKU_IDENTITY HEROKU_API_KEY; do
     if [ -n "$HEROKU_REPO" ]; then
-        docker tag $DOCKER_USERNAME/$DOCKER_REPO registry.heroku.com/$HEROKU_REPO/web &&
+        docker tag $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/} registry.heroku.com/$HEROKU_REPO/web &&
         echo $HEROKU_API_KEY |
         docker login -u $HEROKU_IDENTITY --password-stdin registry.heroku.com &&
         docker push registry.heroku.com/$HEROKU_REPO/web &&
@@ -25,7 +25,6 @@ while read HEROKU_REPO HEROKU_IDENTITY HEROKU_API_KEY; do
 done
 # Deploy to docker hub new version (tag)
 echo Deploy to docker hub
-docker tag $DOCKER_USERNAME/$DOCKER_REPO $DOCKER_USERNAME/$DOCKER_REPO:${TRAVIS_TAG:=latest} &&
 echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin &&
-docker push $DOCKER_USERNAME/$DOCKER_REPO
+docker push $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/}

@@ -23,14 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - name: GITHUB_REF
-        run: echo GITHUB_REF=$GITHUB_REF
       - name: build
-        run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
+        run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/} .
       - name: install
         run: pip install pytest-cov pytest-flake8 codecov
       - name: run
-        run: docker run -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
+        run: docker run --name streamlink -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/}
       - name: sleep
         run: sleep 4
       - name: test
@@ -41,6 +39,7 @@ jobs:
                 failure() }}
         uses: mxschmitt/action-tmate@v3
       - name: deploy
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           HEROKU: ${{ secrets.HEROKU }}
