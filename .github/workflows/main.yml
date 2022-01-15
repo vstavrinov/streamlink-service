@@ -8,7 +8,7 @@ on:
         description: 'Run the build with tmate debugging enabled'
         required: false
         default: false
-    streamlink:
+      streamlink:
         description: 'Streamlink update indicator'
         required: false
 
