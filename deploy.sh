@@ -8,7 +8,7 @@ elif [ -n "$SHA" ]; then
 else
     TAG="latest"
 fi
-IMAGE=$(docker inspect registry.heroku.com/$HEROKU_REPO/web --format={{.Id}})
+IMAGE=$(docker inspect $DOCKER_USERNAME/$DOCKER_REPO --format={{.Id}})
 echo Deploy to heroku
 echo "$HEROKU" |
 while read HEROKU_REPO HEROKU_IDENTITY HEROKU_API_KEY; do
