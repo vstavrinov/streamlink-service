@@ -29,11 +29,11 @@ jobs:
       - name: GITHUB_REF
         run: echo GITHUB_REF=$GITHUB_REF github.event.inputs.streamlink=${{ github.event.inputs.streamlink }}
       - name: build
-        run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/} .
+        run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
       - name: install
         run: pip install pytest-cov pytest-flake8 codecov
       - name: run
-        run: docker run --name streamlink -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO:${GITHUB_REF#refs/*/}
+        run: docker run --name streamlink -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
       - name: sleep
         run: sleep 4
       - name: test
@@ -49,4 +49,5 @@ jobs:
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           HEROKU: ${{ secrets.HEROKU }}
+          SHA: ${{ github.event.inputs.streamlink }}
         run: ./deploy.sh
