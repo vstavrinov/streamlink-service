@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
 
 # Deploy to heroku and Cloud Function on commits of master branch
 if [ "${GITHUB_REF#refs/tags/}" != "$GITHUB_REF" ]; then
