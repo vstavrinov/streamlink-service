@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+shopt -s inherit_errexit
+
 # Deploy to heroku and Cloud Function on commits of master branch
 if [ "${GITHUB_REF#refs/tags/}" != "$GITHUB_REF" ]; then
     TAG=${GITHUB_REF#refs/tags/}
