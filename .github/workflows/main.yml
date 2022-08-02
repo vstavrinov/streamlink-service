@@ -37,7 +37,9 @@ jobs:
       - name: sleep
         run: sleep 4
       - name: test
-        run: python -m pytest
+        run: |
+          python -m pytest
+          flake8
       - name: Setup tmate session
         if: ${{ github.event_name == 'workflow_dispatch' &&
                 github.event.inputs.debug_enabled ||
