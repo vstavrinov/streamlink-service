@@ -40,7 +40,7 @@ def streamlink(request=request):
             # Set session options described by help
             session.set_option(key, value)
             # Set plugin options if require (usually username and password)
-            plugin.set_option(key, value)
+            session.set_plugin_option(plugin,key, value)
         # Catch stream with given url
         streams = session.streams(url[0])
         # pick the stream
@@ -54,7 +54,7 @@ def streamlink(request=request):
         url_root = request.url_root
 
         def generate(fd):
-            chunk = True
+            chunk = fd.read(buff_size)
             # Iterate over stream
             with fd:
                 last = time()
