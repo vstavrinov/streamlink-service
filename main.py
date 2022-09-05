@@ -40,7 +40,7 @@ def streamlink(request=request):
             # Set session options described by help
             session.set_option(key, value)
             # Set plugin options if require (usually username and password)
-            session.set_plugin_option(plugin,key, value)
+            session.set_plugin_option(plugin, key, value)
         # Catch stream with given url
         streams = session.streams(url[0])
         # pick the stream
