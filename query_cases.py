@@ -40,7 +40,7 @@ class TestCases(unittest.TestCase):
     def test_path(self):
         '''Drop last char from url to get exception.'''
         args = url[:-1]
-        self.assertTrue('Available streams: []' in self.probe(args, None).decode())
+        self.assertTrue(' PluginError: ' in self.probe(args, None).decode())
 
     def test_host(self):
         '''Drop first char from url to get exception.'''

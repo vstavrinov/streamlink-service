@@ -54,7 +54,7 @@ def streamlink(request=request):
         url_root = request.url_root
 
         def generate(fd):
-            chunk = fd.read(buff_size)
+            chunk = True
             # Iterate over stream
             with fd:
                 last = time()
