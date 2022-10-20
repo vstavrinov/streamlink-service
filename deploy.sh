@@ -1,13 +1,7 @@
 #!/bin/bash -e
 
 # Deploy to heroku and Cloud Function on commits of master branch
-if [ "${GITHUB_REF#refs/tags/}" != "$GITHUB_REF" ]; then
-    TAG=${GITHUB_REF#refs/tags/}
-elif [ -n "$SHA" ]; then
-    TAG=$SHA
-else
-    TAG="latest"
-fi
+TAG=$(versioningit)
 IMAGE=$(docker inspect $DOCKER_USERNAME/$DOCKER_REPO --format={{.Id}})
 echo Deploy to heroku
 echo "$HEROKU" |
@@ -36,10 +30,7 @@ while read HEROKU_REPO HEROKU_IDENTITY HEROKU_API_KEY; do
 done
 # Deploy to docker hub new version (tag)
 echo Deploy to docker hub
-docker tag $DOCKER_USERNAME/$DOCKER_REPO $DOCKER_USERNAME/$DOCKER_REPO:$TAG
 echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
-if [ "$TAG" != "latest" ]; then
-    docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
-fi
+docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
