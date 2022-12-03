@@ -54,6 +54,5 @@ jobs:
                 github.event.inputs.streamlink }}
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          HEROKU: ${{ secrets.HEROKU }}
           SHA: ${{ github.event.inputs.streamlink }}
         run: ./deploy.sh
