@@ -22,7 +22,7 @@ def streamlink(request=request):
         if 'help' in args:
             return Response(Streamlink.set_option.__doc__, content_type='text/plain')
         if 'version' in args:
-            return Response(Streamlink.version.fget('self'), content_type='text/plain')
+            return Response(Streamlink.version.fget('self') + '\n', content_type='text/plain')
         # url should be either first argument or set explicitly with 'url' key.
         if 'url' not in args:
             url = next(iter(args))
