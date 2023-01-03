@@ -2,7 +2,7 @@ FROM alpine
 WORKDIR /srv/streamlink-service
 ENV PORT=7000
 EXPOSE $PORT
-ADD main.py gunicorn.conf.py .
+ADD main.py gunicorn.conf.py ./
 RUN apk update &&                                                \
     apk add --no-cache python3 py-pip py-flask py3-gunicorn git; \
     pip --no-cache-dir install                                   \
