@@ -4,7 +4,7 @@ import unittest
 if 'test_url' in os.environ:
     url = os.environ['test_url']
 else:
-    url = 'nbcnews.com/now'
+    url = 'cbsnews.com/live'
 sample = '474000'
 
 
