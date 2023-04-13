@@ -34,8 +34,9 @@ jobs:
         run: echo GITHUB_REF=$GITHUB_REF github.event.inputs.streamlink=${{ github.event.inputs.streamlink }}
       - name: build
         run: docker build -t $DOCKER_USERNAME/$DOCKER_REPO .
+      - uses: codecov/codecov-action@v3
       - name: install
-        run: pip install pytest-cov pytest-flake8 codecov versioningit
+        run: pip install pytest-cov pytest-flake8 versioningit
       - name: run
         run: docker run --name streamlink -d -e PORT=$PORT -p $entry:$PORT $DOCKER_USERNAME/$DOCKER_REPO
       - name: sleep
