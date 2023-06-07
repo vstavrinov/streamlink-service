@@ -1,5 +1,9 @@
 [tool.versioningit]
 
+[tool.versioningit.vcs]
+method = "git-archive"
+describe-subst = "$Format:%(describe:tags)$"
+
 [tool.versioningit.format]
 distance = "{base_version}.{distance}"
 dirty = "{base_version}.{distance}.0"

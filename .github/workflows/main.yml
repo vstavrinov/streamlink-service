@@ -24,11 +24,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 100
-      - name: Fetch tags
-        run: git fetch --depth=100 origin +refs/tags/*:refs/tags/*
+      - name : checkout
+        run: |
+          curl --location \
+               --output - \
+               $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz |
+          tar --strip-components=1 \
+              --extract            \
+              --gunzip             \
       - uses: actions/setup-python@v4
       - name: GITHUB_REF
         run: echo GITHUB_REF=$GITHUB_REF github.event.inputs.streamlink=${{ github.event.inputs.streamlink }}
