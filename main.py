@@ -32,7 +32,7 @@ def streamlink(request=request):
         # Split url to url itself (url[0]) and stream (url[1]) if present.
         url = url.split()
         session = Streamlink()
-        # plugin = session.resolve_url(url[0])[0]
+        pluginname, pluginclass, resolved_url = session.resolve_url(url[0])
         # Use remain arguments to set other options.
         for key in args:
             if re.match('[0-9]+$', args[key]):
@@ -41,9 +41,10 @@ def streamlink(request=request):
                 value = args[key]
             # Set session options described by help
             session.set_option(key, value)
-            # Set plugin options if require (usually username and password)
-            # session.set_plugin_option(plugin, key, value)
+        # Set plugin options if require (usually username and password)
+        options = session.options
         # Catch stream with given url
+        plugin = pluginclass(session, resolved_url, options)
         streams = session.streams(url[0])
         # pick the stream
         if len(url) > 1:
