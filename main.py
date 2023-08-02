@@ -44,7 +44,7 @@ def streamlink(request=request):
         # Set plugin options if require (usually username and password)
         options = session.options
         # Catch stream with given url
-        plugin = pluginclass(session, resolved_url, options)
+        pluginclass(session, resolved_url, options)
         streams = session.streams(url[0])
         # pick the stream
         if len(url) > 1:
