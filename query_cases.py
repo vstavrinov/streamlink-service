@@ -55,4 +55,4 @@ class TestCases(unittest.TestCase):
     def test_help(self):
         '''Pull out long help message'''
         args = 'help'
-        self.assertTrue('**Available options**:' in self.probe(args, None).decode())
+        self.assertTrue('Streamlink\'s session options.' in self.probe(args, None).decode())

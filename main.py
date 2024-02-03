@@ -2,6 +2,7 @@ import re
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
 from streamlink import Streamlink
+from streamlink.session.options import StreamlinkOptions
 from sys import argv
 from time import time
 from urllib.request import urlopen
@@ -20,7 +21,7 @@ def streamlink(request=request):
         args = request.args
         # Available options
         if 'help' in args:
-            return Response(Streamlink.set_option.__doc__, content_type='text/plain')
+            return Response(StreamlinkOptions.__doc__, content_type='text/plain')
         if 'version' in args:
             return Response(Streamlink.version.fget('self') + '\n', content_type='text/plain')
         # url should be either first argument or set explicitly with 'url' key.
@@ -34,6 +35,7 @@ def streamlink(request=request):
         session = Streamlink()
         pluginname, pluginclass, resolved_url = session.resolve_url(url[0])
         # Use remain arguments to set other options.
+        session.set_option('http-ssl-verify', 0)
         for key in args:
             if re.match('[0-9]+$', args[key]):
                 value = int(args[key])
