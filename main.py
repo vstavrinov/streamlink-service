@@ -1,4 +1,5 @@
 import re
+import urllib.parse
 from flask import Flask, request, Response
 # We use streamlink to catch video stream from web page or direct link.
 from streamlink import Streamlink
@@ -31,7 +32,7 @@ def streamlink(request=request):
             url = args['url']
 
         # Split url to url itself (url[0]) and stream (url[1]) if present.
-        url = url.split()
+        url = urllib.parse.unquote(url).split()
         session = Streamlink()
         pluginname, pluginclass, resolved_url = session.resolve_url(url[0])
         # Use remain arguments to set other options.
