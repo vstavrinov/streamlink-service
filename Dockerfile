@@ -1,6 +1,6 @@
 FROM alpine
 WORKDIR /srv/streamlink-service
-ENV PORT=7000
+ENV PORT=7000 TMPDIR=/dev/shm
 EXPOSE $PORT
 ADD main.py gunicorn.conf.py ./
 RUN apk update &&                                                       \
