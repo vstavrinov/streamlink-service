@@ -35,7 +35,7 @@ def streamlink(request=request):
         session = Streamlink()
         pluginname, pluginclass, resolved_url = session.resolve_url(url[0])
         # Use remain arguments to set other options.
-        #session.set_option('http-ssl-verify', 0)
+        # session.set_option('http-ssl-verify', 0)
         for key in args:
             if re.match('[0-9]+$', args[key]):
                 value = int(args[key])
