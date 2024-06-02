@@ -58,4 +58,8 @@ jobs:
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           SHA: ${{ github.event.inputs.streamlink }}
+          GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_REGISTRY: ghcr.io
+          IMAGE_NAME: ${{ github.repository }}
         run: ./deploy.sh
