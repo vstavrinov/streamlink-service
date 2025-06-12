@@ -4,13 +4,10 @@ from flask import Flask, request, Response
 from streamlink import Streamlink
 from streamlink.session.options import StreamlinkOptions
 from sys import argv
-from time import time
-from urllib.request import urlopen
 
 app = Flask(__name__)
 # Set video chunk size
 buff_size = 1 << 16
-pause = 600
 
 
 @app.route('/')
@@ -55,20 +52,11 @@ def streamlink(request=request):
             # If specific stream is not provided in args, output list of available streams.
             return Response('Available streams: ' + str(list(streams.keys())) + '\n', content_type='text/plain')
 
-        # Stream generator
-        url_root = request.url_root
-
         def generate(fd):
             chunk = True
             # Iterate over stream
             with fd:
-                last = time()
                 while chunk:
-                    now = time()
-                    # yank periodically server to keepalive
-                    if now - last > pause:
-                        urlopen(url_root)
-                        last = now
                     chunk = fd.read(buff_size)
                     # Read chunk of stream
                     yield chunk
