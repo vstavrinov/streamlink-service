@@ -15,8 +15,8 @@ on:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_REPO: streamlink-service
-  PORT: 7000
-  entry: 8000
+  PORT: 8080
+  entry: 8080
 
 jobs:
   deploy:

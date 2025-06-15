@@ -41,13 +41,13 @@ docker run -d -e PORT=8080 -p 8080:8080 vstavrinov/streamlink-service
 Finally you can watch tv:
 
 ```
-vlc --playlist-autostart http://localhost:8080/?youtube.com/user/Bloomberg+best=
+vlc --playlist-autostart http://localhost:8080?youtube.com/BloombergTV/live+best=
 ```
 
-Here 'youtube.com/user/Bloomberg' is URL of web page where You watch this stream with browser. Trailing '=' sign is necessary in this case because it is shortcut for 'url=youtube.com/user/Bloomberg+best' parameter. The '+best'  suffix  is one of available streams. Check for all available streams:
+Here 'youtube.com/Bloomberg/live' is URL of web page where You watch this stream with browser. Trailing '=' sign is necessary in this case because it is shortcut for 'url=youtube.com/Bloomberg/live+best' parameter. The '+best'  suffix  is one of available streams. Check for all available streams:
 
 ```
-curl http://localhost:8080/?youtube.com/user/Bloomberg=
+curl http://localhost:8080?youtube.com/BloombergTV/live=
 ```
 
 Here is list of supported sites for streaming: https://github.com/vstavrinov/streamlink/blob/master/docs/plugin\_matrix.rst
@@ -64,7 +64,7 @@ key1=value1&key2=value2
 ```
 For example using proxy:
 ```
-vlc --playlist-autostart 'http://localhost:8080/?youtube.com/user/Bloomberg+best=&https-proxy=http://80.245.117.194:8080'
+vlc --playlist-autostart 'http://localhost:8080?youtube.com/BloombergTV/live+best=&https-proxy=http://80.245.117.194:8080'
 ```
 If the URL itself contains query string then url should be set in key/value style like others i.e. url=...
 
@@ -75,3 +75,13 @@ vlc --playlist-autostart 'http://localhost:8080/?url=arconaitv.us/stream.php?id=
 The last example shows as well how to set boolean value: the key 'http-ssl-verify' has no value  - this way it set to False, while in any other ways it always gets True. Note that some sites requires username and password, so they could be added as usual options.
 
 Needless to say You can use any player instead vlc and browser your prefer instead curl. 
+
+
+## Update
+
+The docker image automatically updated with [streamlink](https://github.com/streamlink/streamlink) every update. So to get image for your service up to date do the following in that order:
+
+1. Stop your docker container.
+2. Remove Your docker container.
+3. Remove your docker image.
+4. Run your docker container.
