@@ -7,4 +7,4 @@ RUN apk update &&                                                       \
     pip --no-cache-dir install --break-system-packages                  \
         git+https://github.com/vstavrinov/streamlink.git;               \
     apk del git
-CMD gunicorn --workers ${WORKERS:2} --bind 0.0.0.0:${PORT:8080} main:app
+CMD gunicorn --workers ${WORKERS:=2} --bind 0.0.0.0:${PORT:=8080} main:app
